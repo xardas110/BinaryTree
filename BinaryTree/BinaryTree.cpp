@@ -9,6 +9,6 @@ int main()
 	
 	bt->PostOrder();
 	std::cout << std::endl << std::endl << std::endl;
-	bt->PostOrderNotRecursive();
+	bt->PostOrderIterative();
 }
 

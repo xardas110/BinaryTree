@@ -7,12 +7,12 @@ class BinaryNode
 {
 	using BinaryPtr = BinaryNode<T>*;
 public:
-	explicit BinaryNode(const T data);
+	explicit BinaryNode(const T& data);
 	BinaryNode(const std::initializer_list<T>& list);
 
-	BinaryNode<T>* Find(const T val);
+	BinaryNode<T>* Find(const T& val);
 	
-	void Insert(const T val);
+	void Insert(const T& val);
 
 	void Print() const;
 	
@@ -20,15 +20,15 @@ public:
 	void PreOrder() const;
 	void PostOrder() const;
 
-	void InOrderNotRecursive();
-	void PostOrderNotRecursive();
+	void InOrderIterative();
+	void PostOrderIterative();
 
 	void InOrderReverse() const;
 
 	void InOrder(std::vector<T> &container) const;
 	void InOrderReverse(std::vector<T>& container) const;
 
-	T GetData() const;
+	const T& GetData() const;
 
 private:
 	

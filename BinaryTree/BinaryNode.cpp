@@ -3,7 +3,7 @@
 #include <stack>
 
 template <class T>
-BinaryNode<T>::BinaryNode(const T data)
+BinaryNode<T>::BinaryNode(const T& data)
 {
 	m_data = data;
 }
@@ -20,7 +20,7 @@ BinaryNode<T>::BinaryNode(const std::initializer_list<T>& list)
 }
 
 template <class T>
-void BinaryNode<T>::Insert(const T val)
+void BinaryNode<T>::Insert(const T& val)
 {
 	if (val < m_data)
 	{
@@ -78,11 +78,10 @@ void BinaryNode<T>::PostOrder() const
 }
 
 template <class T>
-void BinaryNode<T>::InOrderNotRecursive()
+void BinaryNode<T>::InOrderIterative()
 {
-	using BinaryPtr = BinaryNode<T>*;
-	std::stack<BinaryPtr> stack;
-	BinaryPtr p = this;
+	std::stack<decltype(this)> stack;
+	decltype(this) p = this;
 	
 	do 
 	{	
@@ -101,27 +100,24 @@ void BinaryNode<T>::InOrderNotRecursive()
 }
 
 template <class T>
-void BinaryNode<T>::PostOrderNotRecursive()
+void BinaryNode<T>::PostOrderIterative()
 {
-	using BinaryPtr = BinaryNode<T>*;
-	std::stack<BinaryPtr> stack;
-	std::stack<BinaryPtr> post_order_stack;
-	BinaryPtr p = this;
+	std::stack<decltype(this)> stack;
+	std::stack<decltype(this)> post_order_stack;
+	decltype(this) p = this;
 	stack.push(p);
 
 	while (!stack.empty())
 	{
 		p = stack.top();
-		stack.pop();
-		if (p->m_left)
-		{
-			stack.push(p->m_left);
-		}
-		if (p->m_right)
-		{
-			stack.push(p->m_right);
-		}
 		post_order_stack.push(p);
+		stack.pop();
+		
+		if (p->m_left)
+			stack.push(p->m_left);
+
+		if (p->m_right)
+			stack.push(p->m_right);	
 	}
 	while (!post_order_stack.empty())
 	{
@@ -165,13 +161,13 @@ void BinaryNode<T>::InOrderReverse(std::vector<T>& container) const
 }
 
 template <class T>
-T BinaryNode<T>::GetData() const
+const T& BinaryNode<T>::GetData() const
 {
 	return m_data;
 }
 
 template<class T>
-BinaryNode<T>* BinaryNode<T>::Find(const T val)
+BinaryNode<T>* BinaryNode<T>::Find(const T& val)
 {
 	if (val == m_data)
 		return this;
